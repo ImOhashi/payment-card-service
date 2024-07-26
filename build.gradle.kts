@@ -33,7 +33,7 @@ dependencies {
 	// Web
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springdoc:springdoc-openapi-ui:1.6.12")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
 
 	// Database
 	runtimeOnly("org.postgresql:postgresql")
