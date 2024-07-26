@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  payment-card-db:
+    container_name: payment-card-db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: payment-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
