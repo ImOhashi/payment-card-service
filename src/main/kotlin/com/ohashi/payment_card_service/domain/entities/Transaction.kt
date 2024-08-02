@@ -8,8 +8,8 @@ import java.util.*
 data class Transaction(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: UUID? = UUID.randomUUID(),
+    @GeneratedValue(strategy = GenerationType.UUID)
+    val id: UUID? = null,
     val accountId: String,
     val amount: Double,
     val merchant: String,
