@@ -11,6 +11,7 @@ import java.util.UUID
 
 @Entity
 data class Amount(
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null,
