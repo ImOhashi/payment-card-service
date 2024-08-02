@@ -30,6 +30,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
+	// Log4j
+	implementation("org.apache.logging.log4j:log4j-api:2.20.0")
+	implementation("org.apache.logging.log4j:log4j-core:2.20.0")
+
 	// Web
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -38,6 +42,7 @@ dependencies {
 	// Database
 	runtimeOnly("org.postgresql:postgresql")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.flywaydb:flyway-core:9.16.0")
 
 	// Test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
