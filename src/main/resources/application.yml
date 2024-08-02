@@ -67,3 +67,10 @@ info:
     description: "Payment card service"
   author: "Leonardo Ohashi"
   java-version: ${java.version}
+
+### APP CONFIGURATION
+app:
+  mcc:
+    values:
+      food: "5411,5412"
+      meal: "5811,5812"
