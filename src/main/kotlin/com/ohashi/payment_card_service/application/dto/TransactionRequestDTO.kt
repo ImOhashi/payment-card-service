@@ -1,5 +1,7 @@
 package com.ohashi.payment_card_service.application.dto
 
+import java.util.*
+
 data class TransactionRequestDTO(
     val account: String,
     val totalAmount: Double,
