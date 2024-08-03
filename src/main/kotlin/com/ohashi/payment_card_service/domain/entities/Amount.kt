@@ -1,12 +1,7 @@
 package com.ohashi.payment_card_service.domain.entities
 
 import com.ohashi.payment_card_service.domain.entities.enums.AmountType
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
 import java.util.UUID
 
 @Entity
@@ -16,6 +11,7 @@ data class Amount(
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null,
 
+    @Enumerated(EnumType.STRING)
     val type: AmountType,
     val value: Double,
 
