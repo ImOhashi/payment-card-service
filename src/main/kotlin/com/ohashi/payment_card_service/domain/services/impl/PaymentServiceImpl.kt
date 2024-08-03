@@ -28,18 +28,28 @@ class PaymentServiceImpl(
 
         val account = getAccount(transactionRequest.account)
 
-        checkSufficientAmount(account, amountType, transactionRequest.totalAmount)?.let {
-            logger.info("Debiting value=${transactionRequest.totalAmount} of amount type=${it.type}")
-
-            amountRepository.save(
-                it.copy(value = it.value - transactionRequest.totalAmount)
-            )
-
-            logger.info("Transaction approved")
-            return TransactionStatus.APPROVED
+        return when {
+            tryDebitAmount(account, amountType, transactionRequest.totalAmount) -> {
+                logger.info("Transaction approved")
+                TransactionStatus.APPROVED
+            }
+            tryDebitAmount(account, AmountType.CASH, transactionRequest.totalAmount) -> {
+                logger.info("Transaction approved using cash amount")
+                TransactionStatus.APPROVED
+            }
+            else -> {
+                logger.error("Insufficient amount value to authorize transaction")
+                throw InsufficientAmountValueException("Insufficient amount value to authorize transaction")
+            }
         }
+    }
 
-        return TransactionStatus.REJECTED
+    private fun tryDebitAmount(account: Account, type: AmountType, totalAmount: Double): Boolean {
+        return checkSufficientAmount(account, type, totalAmount)?.let {
+            logger.info("Debiting value=${totalAmount} of amount type=${type}")
+            amountRepository.save(it.copy(value = it.value - totalAmount))
+            true
+        } ?: false
     }
 
     private fun getAccount(accountId: String): Account {
@@ -51,11 +61,6 @@ class PaymentServiceImpl(
 
     private fun checkSufficientAmount(account: Account, type: AmountType, totalAmount: Double): Amount? {
         return account.amountList.find { validateBalance(it, type, totalAmount) }
-    }
-
-    private fun throwInsufficientAmountException() {
-        logger.error("Insufficient amount value to authorize transaction")
-        throw InsufficientAmountValueException("Insufficient amount value to authorize transaction")
     }
 
 
