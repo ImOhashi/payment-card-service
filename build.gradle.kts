@@ -66,6 +66,13 @@ tasks.withType<Test> {
 	finalizedBy(tasks.jacocoTestReport)
 }
 
+val excludePackages: Iterable<String> = listOf(
+	"**/com/ohashi/payment_card_service/application/**",
+	"**/com/ohashi/payment_card_service/domain/entities/**"
+)
+
+extra["excludePackages"] = excludePackages
+
 tasks.jacocoTestReport {
 	dependsOn(tasks.test)
 
@@ -74,4 +81,10 @@ tasks.jacocoTestReport {
 		csv.required = false
 		html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
 	}
+
+	classDirectories.setFrom(
+		sourceSets.main.get().output.asFileTree.matching {
+			exclude(excludePackages)
+		}
+	)
 }
